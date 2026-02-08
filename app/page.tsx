@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { callVerifyFact, connectMetaMask, clearWalletCache } from "@/lib/genlayer/client";
 
+export const dynamic = 'force-dynamic'
+
 type FactResult = {
   verdict: "true" | "false" | "partial" | "unknown";
   confidence: number;
