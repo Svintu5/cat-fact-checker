@@ -1,0 +1,73 @@
+/* globals.css */
+
+@import "tailwindcss";
+
+/* 2. Обновляем фирменные цвета GenLayer в HEX */
+:root {
+  color-scheme: dark; 
+  --background: #39345C; /* Navy */
+  --foreground: #ffffff; 
+  --accent: #A378FF; /* Primary */
+  --secondary-accent: #E783FF; /* Secondary */
+  --dark-text: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #39345C;
+    --foreground: #ffffff;
+  }
+}
+
+/* 3. Применяем новые переменные и шрифт */
+body {
+  color: var(--foreground);
+  background-color: #39345C;
+  color: #ffffff !important;
+  font-family: 'Switzer', sans-serif; 
+}
+
+/* Наши utility-классы */
+
+.glass-card {
+  /* Эффект матового стекла */
+  background: rgba(255, 255, 255, 0.03); 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Граница: сверху светлее (блик), снизу темнее (тень) */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Объемная тень: основная глубокая + легкое свечение акцентным цветом */
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+/* Эффект для инпута, чтобы он казался "вдавленным" в стекло */
+.glass-input {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* 4. Обновляем цвет сетки под фирменный стиль */
+.bg-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(163, 120, 255, 0.25) 1px, /* Primary Accent A378FF с прозрачностью */
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+/* Добавляем класс для текста акцентного цвета */
+.text-accent {
+    color: var(--accent);
+}
