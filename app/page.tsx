@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import { callVerifyFact, connectMetaMask, clearWalletCache } from "@/lib/genlayer/client";
 
 export const dynamic = 'force-dynamic'
@@ -16,11 +15,7 @@ type FactResult = {
 const LOCAL_STORAGE_KEY = 'mochi_last_fact_result';
 
 export default function HomePage() {
-  const searchParams = useSearchParams();
-  
-  // 1. Инициализируем локальное состояние из URL (выполнится один раз)
-  const [localFact, setLocalFact] = useState(searchParams.get('fact') || '');
-  
+  const [localFact, setLocalFact] = useState('');
   const [result, setResult] = useState<FactResult | null>(null); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +32,17 @@ export default function HomePage() {
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState(null, '', newUrl);
   };
+
+  // --- Эффект для чтения URL параметров ---
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const factFromUrl = params.get('fact');
+      if (factFromUrl) {
+        setLocalFact(factFromUrl);
+      }
+    }
+  }, []);
 
   // --- Эффекты для LocalStorage ---
 
